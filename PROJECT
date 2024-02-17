@@ -7,4 +7,14 @@ layout:
 - go.kubebuilder.io/v4
 projectName: sinker
 repo: github.com/cannonpalms/sinker-go
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: influxdata.io
+  group: sinker
+  kind: ResourceSync
+  path: github.com/cannonpalms/sinker-go/api/v1alpha1
+  version: v1alpha1
 version: "3"
