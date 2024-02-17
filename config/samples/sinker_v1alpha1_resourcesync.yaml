@@ -1,0 +1,12 @@
+apiVersion: sinker.influxdata.io/v1alpha1
+kind: ResourceSync
+metadata:
+  labels:
+    app.kubernetes.io/name: resourcesync
+    app.kubernetes.io/instance: resourcesync-sample
+    app.kubernetes.io/part-of: sinker
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: sinker
+  name: resourcesync-sample
+spec:
+  # TODO(user): Add fields here

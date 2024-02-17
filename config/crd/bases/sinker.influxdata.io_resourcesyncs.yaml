@@ -1,0 +1,147 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.14.0
+  name: resourcesyncs.sinker.influxdata.io
+spec:
+  group: sinker.influxdata.io
+  names:
+    kind: ResourceSync
+    listKind: ResourceSyncList
+    plural: resourcesyncs
+    singular: resourcesync
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: ResourceSync is the Schema for the resourcesyncs API
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: ResourceSyncSpec defines the desired state of ResourceSync
+            properties:
+              mappings:
+                items:
+                  properties:
+                    fromFieldPath:
+                      description: 'TODO: validate at least one of these fields must
+                        be set'
+                      type: string
+                    toFieldPath:
+                      type: string
+                  type: object
+                type: array
+              source:
+                description: 'TODO: find the pre-existing reference types and redesign
+                  this API'
+                properties:
+                  cluster:
+                    description: 'TODO: rename type to ClusterNamespaceRef?'
+                    properties:
+                      kubeConfig:
+                        properties:
+                          secretRef:
+                            properties:
+                              key:
+                                type: string
+                              name:
+                                type: string
+                            required:
+                            - key
+                            - name
+                            type: object
+                        required:
+                        - secretRef
+                        type: object
+                      namespace:
+                        type: string
+                    required:
+                    - kubeConfig
+                    type: object
+                  resourceRef:
+                    properties:
+                      apiVersion:
+                        type: string
+                      kind:
+                        type: string
+                      name:
+                        type: string
+                    required:
+                    - apiVersion
+                    - kind
+                    - name
+                    type: object
+                required:
+                - resourceRef
+                type: object
+              target:
+                description: 'TODO: find the pre-existing reference types and redesign
+                  this API'
+                properties:
+                  cluster:
+                    description: 'TODO: rename type to ClusterNamespaceRef?'
+                    properties:
+                      kubeConfig:
+                        properties:
+                          secretRef:
+                            properties:
+                              key:
+                                type: string
+                              name:
+                                type: string
+                            required:
+                            - key
+                            - name
+                            type: object
+                        required:
+                        - secretRef
+                        type: object
+                      namespace:
+                        type: string
+                    required:
+                    - kubeConfig
+                    type: object
+                  resourceRef:
+                    properties:
+                      apiVersion:
+                        type: string
+                      kind:
+                        type: string
+                      name:
+                        type: string
+                    required:
+                    - apiVersion
+                    - kind
+                    - name
+                    type: object
+                required:
+                - resourceRef
+                type: object
+            type: object
+          status:
+            description: ResourceSyncStatus defines the observed state of ResourceSync
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
